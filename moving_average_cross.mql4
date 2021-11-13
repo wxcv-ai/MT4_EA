@@ -10,7 +10,7 @@
 #define MAGICNUM  20131111
  
 // Define our Parameters
-input double Lots          = 0.1;
+input double Lot_size          = 0.1;
 input int PeriodOne        = 40; // The period for the first SMA
 input int PeriodTwo        = 100; // The period for the second SMA
 input int TakeProfit       = 40; // The take profit level (0 disable)
@@ -34,12 +34,12 @@ int CheckForCross(double input1, double input2)
   static int previous_direction = 0;
   static int current_direction  = 0;
  
-  // Up Direction = 1
+  // long  Direction = 1
   if(input1 > input2){
     current_direction = 1;
   }
  
-  // Down Direction = 2
+  // short Direction = 2
   if(input1 < input2){
     current_direction = 2;
   }
@@ -58,7 +58,7 @@ int CheckForCross(double input1, double input2)
 //+------------------------------------------------------------------+
 double LotsOptimized()
   {
-   double lot = Lots;
+   double lot = Lot_size;
    // Calculate Lot size as a fifth of available free equity.
    lot = NormalizeDouble((AccountFreeMargin()/5)/1000.0,1);
    if(lot<0.1) lot=0.1; //Ensure the minimal amount is 0.1 lots
